@@ -12,5 +12,5 @@ class AppError extends Error {
 module.exports = { AppError };
 /**
  * Esta función nos permite capturar cualquier error que se produzca a la hora de hacer una petición
- * Actua como un manejador de errores
+ * Actua como un manejador de errores debido a que no cuenta con testing
  */
