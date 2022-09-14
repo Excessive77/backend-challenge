@@ -1,0 +1,685 @@
+{
+	"info": {
+		"_postman_id": "b9d65055-ad78-4f85-a32b-803f58406ebf",
+		"name": "backend-challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20550164"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jorge\",\r\n    \"email\": \"jorge@gmail.com\",\r\n    \"password\": \"abcd123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"auth",
+								"register"
+							]
+						},
+						"description": "# Registra a un nuevo usuario con los campos de \"name\", \"email\" y password"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjYyNDk5MTEwLCJleHAiOjE2NjM3OTUxMTB9.6IsDkWlbi1lQXjDVVWlWvRXPe13a5OfHPvVb8KsAhuY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jorgelp122@gmail.com\",\r\n    \"password\": \"pass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"auth",
+								"login"
+							]
+						},
+						"description": "# Una vez realizado el registro ya podemos hacer login con las credenciales previamente registradas\n\n### Nota: Ya no es necesario el campo de \"nombre\", basta con pasar el \"email\" y la \"password\".\n\n## Posterior a ello se le asigna un token para otorgar permisos y poder navegar entre los diferentes endpoints\n\n##### Se recomienda iniciar con un correo valido para recibir el correo de bienvenida"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Characters",
+			"item": [
+				{
+					"name": "getCharacters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "# Muestra la lista de los personajes, pero solo en sus propiedades de: id, img y name"
+					},
+					"response": []
+				},
+				{
+					"name": "createCharacter",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"img\": \"Henrry-Cavill.jpg\",\r\n    \"name\": \"Henrry Cavill\",\r\n    \"age\": \"35\",\r\n    \"weight\": \"80kg\",\r\n    \"history\": \"SuperMan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/characters",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"characters"
+							]
+						},
+						"description": "# Crea a un nuevo personaje con el siguiente cuerpo"
+					},
+					"response": []
+				},
+				{
+					"name": "getCharacterByName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/characters/name/Mako Mori",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"characters",
+								"name",
+								"Mako Mori"
+							]
+						},
+						"description": "# Busca a un personaje dado su nombre"
+					},
+					"response": []
+				},
+				{
+					"name": "getCharacterByAge",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/characters/age/28",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"characters",
+								"age",
+								"28"
+							]
+						},
+						"description": "# Busca a los personajes por su edad, si uno o mas coinciden con la misma edad, también son mostrados"
+					},
+					"response": []
+				},
+				{
+					"name": "updateCharacter",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"name\": \"Henrry Cavill\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/characters/5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"characters",
+								"5"
+							]
+						},
+						"description": "# Actualiza a un personaje dado su id (cualquier propiedad que necesite ser actualizada)."
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCharacter",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/characters/5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"characters",
+								"5"
+							]
+						},
+						"description": "# Elimina a un personaje dado su id\n\n\n### Nota: No se borra de la base de datos, solo se marca el status como \"deleted\".\n### Esto con la finalidad de no perder datos que puedan ser necesarios para futuras operaciones."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "getMovies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/movies",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movies"
+							]
+						},
+						"description": "# Obtiene el listado de las películas, solo con sus propiedades de: img, title y dateCreation"
+					},
+					"response": []
+				},
+				{
+					"name": "createMovie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"img\": \"superman.jpg\",\r\n    \"title\": \"SuperMan\",\r\n    \"dateCreation\": \"14/09/2022\",\r\n    \"qualifying\": \"5\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/movies",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movies"
+							]
+						},
+						"description": "# Este endpoint funciona para la creación de una nueva película con las siguientes propiedades."
+					},
+					"response": []
+				},
+				{
+					"name": "assignCharacterToMovie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"characterId\": 5,\r\n    \"movieId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/movies/assing-character",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movies",
+								"assing-character"
+							]
+						},
+						"description": "# Este endpoint funciona para asignar un personaje a una película.\n### Se trabajo con una tabla pivote para realizar la conexión de muchos a muchos y poder mostrar los personajes que contiene asociados cada película por medio de sus id's"
+					},
+					"response": []
+				},
+				{
+					"name": "getMovieByName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/movies/name/The big bang theory",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movies",
+								"name",
+								"The big bang theory"
+							]
+						},
+						"description": "# Se obtiene una película dado su nombre.\n\n### En este endpoint se detallan todas las propiedades que tiene dicha película, mostrando también el listado de los personajes que pertenecen a esta."
+					},
+					"response": []
+				},
+				{
+					"name": "getMovieByGenre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/movies/genre/Comedy",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movies",
+								"genre",
+								"Comedy"
+							]
+						},
+						"description": "# Este enpoint nos busca las películas por genero, dado el nombre"
+					},
+					"response": []
+				},
+				{
+					"name": "updateMovie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"img\": \"pacific-rim.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/movies/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movies",
+								"3"
+							]
+						},
+						"description": "# Actualiza cualquier propiedad de la película dado su id"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteMovie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/movies/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						},
+						"description": "# Elimina una película dado su id\n\n### Nota: No se borra de la base de datos, solo se marca el status como \"deleted\".\n\n### Esto con la finalidad de no perder datos que puedan ser necesarios para futuras operaciones."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genres",
+			"item": [
+				{
+					"name": "getGenres",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/genres",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"genres"
+							]
+						},
+						"description": "# Obtiene la lista de los generos y las peliculas asociadas a el"
+					},
+					"response": []
+				},
+				{
+					"name": "createGenre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Science Fiction\",\r\n    \"img\": \"img science-fiction.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/genres",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"genres"
+							]
+						},
+						"description": "# Crea a un nuevo Genero"
+					},
+					"response": []
+				},
+				{
+					"name": "assignMovieToGenre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieId\": 5,\r\n    \"genreId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/genres/assing-genre",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"genres",
+								"assing-genre"
+							]
+						},
+						"description": "# Asigna una pelicula a un genero por medio de sus id's"
+					},
+					"response": []
+				},
+				{
+					"name": "updateGenre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Comedy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/genres/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"genres",
+								"1"
+							]
+						},
+						"description": "# Permite solo actualizar el nombre del genero dado su id"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteGenre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/genres/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"genres",
+								"1"
+							]
+						},
+						"description": "# Elimina a un genero dado su id\n\n### Nota: No se borra de la base de datos, solo se marca el status como \"deleted\".\n\n### Esto con la finalidad de no perder datos que puedan ser necesarios para futuras operaciones."
+					},
+					"response": []
+				}
+			],
+			"description": "# Los siguientes endpoints no son requeridos en el challenge pero se precisan para poder completar el proyecto como tal"
+		}
+	]
+}
